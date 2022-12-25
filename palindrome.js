@@ -1,14 +1,23 @@
-function checkPalindrome(str) {  
-    const len = str.length;  
-    for (let i = 0; i < len / 2; i++) {  
-        if (str[i] !== str[len - 1 - i]) {  
-          alert( 'It is not palindrome'); 
-          return;
-        }  
-    }  
-    alert( 'It is a palindrome');  
-}  
-const string = prompt('Enter a string or number to check for Palindrome: ');  
-  
-const value = checkPalindrome(string);  
-console.log(value);  
+const txtInput = document.querySelector(".inputs input"),
+  checkBtn = document.querySelector(".inputs button"),
+  infoTxt = document.querySelector(".info-txt");
+let filterInput;
+
+checkBtn.addEventListener("click", () => {
+
+  let reverseInput = filterInput.split("").reverse().join("");
+    infoTxt.style.display = "block";
+    if (filterInput != reverseInput) {
+      return infoTxt.innerHTML = `No, <span>'${txtInput.value}'</span> isn't a palindrome!`;
+    }
+    infoTxt.innerHTML = `Yes, <span>'${txtInput.value}'</span> is a palindrome!`;
+});
+
+txtInput.addEventListener("keyup", () => {
+  filterInput = txtInput.value.toLowerCase().replace(/[^A-Z0-9]/ig, "");
+  if (filterInput) {
+    return checkBtn.classList.add("active");
+  }
+  infoTxt.style.display = "none";
+  checkBtn.classList.remove("active"); 
+});
